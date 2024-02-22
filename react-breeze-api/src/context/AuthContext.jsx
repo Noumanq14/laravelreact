@@ -23,8 +23,8 @@ export const AuthProvider = ({children}) => {
             
             const res = await axios.post("/login", data);
             console.log(res);
-            // await getUser();
-            // navigate("/");
+            await getUser();
+            navigate("/");
         }catch (e)
         {
             if(e.response.status === 422){
@@ -42,7 +42,7 @@ export const AuthProvider = ({children}) => {
             
             await axios.post("/register", data);
             await getUser();
-            navigate("/");
+            navigate("/login");
         }catch (e)
         {
             if(e.response.status === 422){
@@ -59,11 +59,7 @@ export const AuthProvider = ({children}) => {
         });
     }
 
-    useEffect(()=>{
-        if(!user){
-            getUser();
-        }
-    },[]);
+
 
     return <AuthContext.Provider value={{user, errors, getUser, login, register, logout, csrf}}>
         {children}
